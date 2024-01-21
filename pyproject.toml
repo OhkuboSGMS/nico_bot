@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "nico-bot"
+version = "0.1.0"
+description = ""
+authors = ["OhkuboSGMS <ginger.os777146th@gmail.com>"]
+readme = "README.md"
+packages = [{ include = "nico_bot" }]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+yt-dlp = "^2023.12.30"
+discord-py = "^2.3.2"
+sqlmodel = "^0.0.14"
+python-dotenv = "^1.0.0"
+apscheduler = "^3.10.4"
+google-cloud-secret-manager = "^2.17.0"
+pydrive2 = "^1.19.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
