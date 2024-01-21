@@ -1,0 +1,13 @@
+[Unit]
+Description = Nico Video Download Deamon
+
+[Install]
+WantedBy = multi-user.target
+
+[Service]
+WorkingDirectory=  /home/<user>/.local/bin/nico_bot
+ExecStart=/home/<user>/.local/bin/nico_bot/venv/bin/python3 /home/<user>/.local/bin/nico_bot/main.py
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+
