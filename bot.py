@@ -41,15 +41,15 @@ async def add(ctx, *args):
         with Session(engine) as session:
             for url in args:
                 if not is_valid_nico_video_url_regex(url):
-                    await ctx.send(f"{url} is ignored")
+                    await ctx.response.send_message(f"{url} is ignored")
                     continue
                 video = Video(url=url)
                 session.add(video)
                 session.commit()
-                await ctx.send(f"{url} is added")
+                await ctx.response.send_message(f"{url} is added")
 
     except Exception as e:
-        await ctx.send(f"add failed:{e}")
+        await ctx.response.send_message(f"add failed:{e}")
         return
 
 
@@ -59,10 +59,10 @@ async def status(ctx):
         with Session(engine) as session:
             not_processed_url = session.exec(select(Video).where(Video.end == False)).all()
             not_processed_url = list(map(lambda p: f"{p.url}", not_processed_url))
-        await ctx.send("未処理動画 一覧\n" + "\n".join(not_processed_url))
+        await ctx.response.send_message("未処理動画 一覧\n" + "\n".join(not_processed_url))
         pass
     except Exception as e:
-        await ctx.send(f"rest command  failed:{e}")
+        await ctx.response.send_message(f"rest command  failed:{e}")
 
 
 bot.run(os.environ["DISCORD_BOT_TOKEN"])
