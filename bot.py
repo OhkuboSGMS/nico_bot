@@ -1,5 +1,6 @@
 import os
 import re
+from typing import List
 
 import discord
 from discord.ext import commands
@@ -36,7 +37,7 @@ def is_valid_nico_video_url_regex(url):
 
 
 @bot.tree.command(name="nico_add", description="ダウンロードするURLを追加。")
-async def add(ctx, args: list[str]):
+async def add(ctx, args: List[str]):
     """Adds two numbers together."""
     try:
         with Session(engine) as session:
