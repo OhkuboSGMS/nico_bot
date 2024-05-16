@@ -36,7 +36,7 @@ def is_valid_nico_video_url_regex(url):
 
 
 @bot.tree.command(name="nico_add", description="ダウンロードするURLを追加。")
-async def add(ctx, *args: list[str]):
+async def add(ctx, args: list[str]):
     """Adds two numbers together."""
     try:
         with Session(engine) as session:
