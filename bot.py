@@ -34,7 +34,7 @@ def is_valid_nico_video_url_regex(url):
     return bool(re.match(url_pattern, url))
 
 
-@bot.command(name="nico_add")
+@bot.tree.command(name="nico_add", description="ダウンロードするURLを追加。")
 async def add(ctx, *args):
     """Adds two numbers together."""
     try:
@@ -53,7 +53,7 @@ async def add(ctx, *args):
         return
 
 
-@bot.command(name="nico_rest")
+@bot.tree.command(name="nico_rest", description="未処理の動画状況を取得。")
 async def status(ctx):
     try:
         with Session(engine) as session:
