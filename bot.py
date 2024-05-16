@@ -24,6 +24,7 @@ SQLModel.metadata.create_all(engine)
 
 @bot.event
 async def on_ready():
+    await bot.tree.sync()
     print(f'Logged in as {bot.user} (ID: {bot.user.id})')
     print('------')
 
@@ -35,7 +36,7 @@ def is_valid_nico_video_url_regex(url):
 
 
 @bot.tree.command(name="nico_add", description="ダウンロードするURLを追加。")
-async def add(ctx, *args):
+async def add(ctx, *args: list[str]):
     """Adds two numbers together."""
     try:
         with Session(engine) as session:
