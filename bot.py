@@ -1,6 +1,4 @@
 import os
-import re
-from typing import List
 
 import discord
 from discord.ext import commands
@@ -10,6 +8,7 @@ from sqlmodel import SQLModel, Session, select
 
 from nico_bot.model import Video
 from nico_bot.sm import load_secret_variables
+from nico_bot.url import is_valid_nico_video_url_regex
 
 load_dotenv()
 load_secret_variables()
@@ -30,25 +29,21 @@ async def on_ready():
     print('------')
 
 
-def is_valid_nico_video_url_regex(url):
-    # Regular expression for a simple URL validation
-    url_pattern = re.compile(r'^https?://www.nicovideo.jp/watch/sm\S+$', re.IGNORECASE)
-    return bool(re.match(url_pattern, url))
-
-
 @bot.tree.command(name="nico_add", description="ダウンロードするURLを追加。")
 async def add(ctx:discord.Interaction, url: str):
     """Adds two numbers together."""
     try:
         with Session(engine) as session:
             if not is_valid_nico_video_url_regex(url):
-                await ctx.response.send_message(f"{url} is ignored")
+                await ctx.response.send_message(f"<{url}> is not valid nico video url")
+                return
             video = Video(url=url)
             session.add(video)
             session.commit()
-            await ctx.response.send_message(f"{url} is added")
+            await ctx.response.send_message(f"<{url}> is added")
 
     except Exception as e:
+
         await ctx.response.send_message(f"add failed:{e}")
         return
 
